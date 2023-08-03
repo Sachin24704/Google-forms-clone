@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useState, useEffect } from "react";
@@ -8,10 +10,10 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/firebase/auth";
 import Link from "next/link";
-import Loader from "/Loader";
+import Loader from "./Loader";
 
 const Provider = new GoogleAuthProvider();
 
@@ -64,7 +66,7 @@ const RegisterForm = () => {
           <p className="mt-6 ml-1">
             Already have an account ?{" "}
             <Link
-              href="/login"
+              href="/Login"
               className="underline hover:text-blue-400 cursor-pointer"
             >
               Login

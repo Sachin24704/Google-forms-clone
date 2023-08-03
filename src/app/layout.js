@@ -1,7 +1,6 @@
 import { AuthUserProvider } from "@/firebase/auth";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { AuthUserProvider } from "@/firebase/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
