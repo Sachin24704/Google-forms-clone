@@ -2,8 +2,21 @@
 
 import React, { useState } from "react";
 import { AiFillPlusCircle, AiFillDelete } from "react-icons/ai";
+import { db } from "@/firebase/firebase";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  where,
+  query,
+  deleteDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import { useRouter } from "next/navigation";
 const Form = () => {
   const [formDesc, setFormDesc] = useState("");
+  const router = useRouter();
   const [formContent, setFormContent] = useState([
     {
       id: 0,
@@ -17,6 +30,31 @@ const Form = () => {
   const [onEdit, setOnEdit] = useState(false);
   const [textField, setTextField] = useState("");
   const [editedField, setEditedField] = useState("");
+
+  const createForm = async () => {
+    console.log("clicked");
+    try {
+      const formData = {
+        formContent,
+        description: formDesc, // Add the form description to the data object
+      };
+      const formRef = await addDoc(collection(db, "forms"), {
+        formData,
+      });
+      const formId = formRef.id;
+
+      // Navigate to the form response page with the form ID
+      router.push(`/res/${formId}`);
+      //   const docRef = await addDoc(collection(db, "todos"), {
+      //     owner: authUser.uid,
+      //     content: todoInput,
+      //     completed: false,
+      // });
+      alert("Form created successfully!");
+    } catch (error) {
+      console.error("Error creating form:", error);
+    }
+  };
 
   const addQuestion = () => {
     const field = {
@@ -191,7 +229,7 @@ const Form = () => {
           </button>
         </div>
       </div>
-      <button onSubmit={console.log(formContent)}>Submit</button>
+      <button onClick={createForm}>Submit</button>
     </div>
   );
 };
